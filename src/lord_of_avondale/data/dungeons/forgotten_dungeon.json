@@ -1,0 +1,43 @@
+{
+  "start_room": "entrance",
+  "rooms": {
+    "entrance": {
+      "name": "Dungeon Entrance",
+      "description": "Cold air drifts through the ancient stone passage. A narrow stairway leads deeper into darkness.",
+      "exits": {
+        "north": "hall"
+      }
+    },
+    "hall": {
+      "name": "The Long Hall",
+      "description": "Torches flicker weakly along the walls. The stone beneath your feet is worn smooth by centuries of travelers.",
+      "exits": {
+        "south": "entrance",
+        "east": "chamber",
+        "north": "crossroads"
+      }
+    },
+    "chamber": {
+      "name": "Goblin's Chamber",
+      "description": "A foul-smelling chamber filled with broken crates and old bones. Something has been living here.",
+      "exits": {
+        "west": "hall"
+      }
+    },
+    "crossroads": {
+      "name": "The Crossroads",
+      "description": "Four ancient passages meet here. The air is strangely still.",
+      "exits": {
+        "south": "hall",
+        "east": "treasure_room"
+      }
+    },
+    "treasure_room": {
+      "name": "Forgotten Treasury",
+      "description": "Dust-covered stone chests line the walls. Whatever treasures once filled this room are long gone.",
+      "exits": {
+        "west": "crossroads"
+      }
+    }
+  }
+}
