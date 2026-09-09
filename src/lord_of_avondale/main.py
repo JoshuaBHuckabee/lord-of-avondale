@@ -9,6 +9,7 @@ from lord_of_avondale.commands.parser import parse_command
 from lord_of_avondale.commands.look import look
 from lord_of_avondale.commands.status import status
 from lord_of_avondale.commands.help import help_command
+from lord_of_avondale.commands.quit import quit_command
 from lord_of_avondale.commands.registry import CommandRegistry
 from lord_of_avondale.commands.context import GameContext
 from lord_of_avondale.commands.result import CommandResult
@@ -66,6 +67,7 @@ def main() -> None:
     registry.register("look", look, aliases=["l"])
     registry.register("status", status, aliases=["stats"])
     registry.register("help", help_command, aliases=["?"])
+    registry.register("quit", quit_command, aliases=["exit"])
 
     print(
         f"\nWelcome, "
@@ -91,10 +93,6 @@ def main() -> None:
             )
         )
 
-        if command in {"quit", "exit"}:
-            print("\nFarewell, adventurer.")
-            break
-
         result = execute_command(
             registry,
             context,
@@ -110,7 +108,7 @@ def main() -> None:
                 break
 
             continue
-        
+
         direction = command
 
         destination = context.current_room.get_exit(direction)
