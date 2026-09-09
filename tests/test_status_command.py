@@ -22,4 +22,5 @@ def test_status_returns_player_status() -> None:
 
     result = status(context, [])
 
-    assert result == player.status()
+    assert result.message == player.status()
+    assert result.continue_game is True

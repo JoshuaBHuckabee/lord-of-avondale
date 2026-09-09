@@ -22,4 +22,5 @@ def test_look_returns_current_room_description() -> None:
 
     result = look(context, [])
 
-    assert result == room.describe()
+    assert result.message == room.describe()
+    assert result.continue_game is True

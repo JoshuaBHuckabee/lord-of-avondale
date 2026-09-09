@@ -11,6 +11,7 @@ from lord_of_avondale.commands.status import status
 from lord_of_avondale.commands.help import help_command
 from lord_of_avondale.commands.registry import CommandRegistry
 from lord_of_avondale.commands.context import GameContext
+from lord_of_avondale.commands.result import CommandResult
 from lord_of_avondale.utils.colors import Colors, color
 from lord_of_avondale.world.world_loader import load_world
 
@@ -19,7 +20,7 @@ def execute_command(
     context: GameContext,
     command: str,
     arguments: list[str],
-) -> str | None:
+) -> CommandResult | None:
     """Execute a registered command and return its output."""
 
     handler = registry.get(command)
@@ -80,8 +81,8 @@ def main() -> None:
         [],
     )
 
-    if result:
-        print(result)
+    if result is not None and result.message:
+        print(result.message)
 
     while player.is_alive():
         command, arguments = parse_command(
@@ -102,9 +103,14 @@ def main() -> None:
         )
 
         if result is not None:
-            print(result)
-            continue
+            if result.message:
+                print(result.message)
 
+            if not result.continue_game:
+                break
+
+            continue
+        
         direction = command
 
         destination = context.current_room.get_exit(direction)

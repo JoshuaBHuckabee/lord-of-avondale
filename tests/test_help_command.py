@@ -21,11 +21,12 @@ def test_help_returns_available_commands() -> None:
 
     result = help_command(context, [])
 
-    assert "north / n" in result
-    assert "south / s" in result
-    assert "east  / e" in result
-    assert "west  / w" in result
-    assert "look" in result
-    assert "status" in result
-    assert "help" in result
-    assert "quit" in result
+    assert "north / n" in result.message
+    assert "south / s" in result.message
+    assert "east  / e" in result.message
+    assert "west  / w" in result.message
+    assert "look" in result.message
+    assert "status" in result.message
+    assert "help" in result.message
+    assert "quit" in result.message
+    assert result.continue_game is True

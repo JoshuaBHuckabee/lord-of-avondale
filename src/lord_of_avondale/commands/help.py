@@ -3,12 +3,17 @@ Help command.
 """
 
 from lord_of_avondale.commands.context import GameContext
+from lord_of_avondale.commands.result import CommandResult
 
 
-def help_command(context: GameContext, arguments: list[str]) -> str:
+def help_command(
+    context: GameContext,
+    arguments: list[str],
+) -> CommandResult:
     """Return the commands currently available to the player."""
 
-    return """
+    return CommandResult(
+        message="""
 Commands
 --------
 north / n
@@ -21,3 +26,4 @@ status
 help
 quit
 """
+    )
