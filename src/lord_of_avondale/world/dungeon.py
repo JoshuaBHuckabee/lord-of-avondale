@@ -2,7 +2,7 @@
 Creates the game's initial dungeon.
 """
 
-from src.lord_of_avondale.world.room import Room
+from lord_of_avondale.world.room import Room
 
 def create_dungeon() -> Room:
     """

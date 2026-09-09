@@ -4,7 +4,7 @@ Character definition for the RPG
 
 from dataclasses import dataclass
 
-from src.lord_of_avondale.utils.colors import Colors, color
+from lord_of_avondale.utils.colors import Colors, color
 
 @dataclass
 class Character:

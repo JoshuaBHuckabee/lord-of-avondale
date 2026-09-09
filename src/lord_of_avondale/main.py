@@ -2,9 +2,9 @@
 Entry point for the RPG.
 """
 
-from src.lord_of_avondale.characters.character import Character
-from src.lord_of_avondale.utils.colors import Colors, color
-from src.lord_of_avondale.world.dungeon import create_dungeon
+from lord_of_avondale.characters.character import Character
+from lord_of_avondale.utils.colors import Colors, color
+from lord_of_avondale.world.dungeon import create_dungeon
 
 
 def print_help() -> None:
