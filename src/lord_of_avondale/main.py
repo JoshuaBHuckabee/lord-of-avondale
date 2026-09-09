@@ -7,6 +7,7 @@ from pathlib import Path
 from lord_of_avondale.characters.character import Character
 from lord_of_avondale.commands.parser import parse_command
 from lord_of_avondale.commands.look import look
+from lord_of_avondale.commands.status import status
 from lord_of_avondale.commands.registry import CommandRegistry
 from lord_of_avondale.commands.context import GameContext
 from lord_of_avondale.utils.colors import Colors, color
@@ -67,6 +68,7 @@ def main() -> None:
 
     registry = CommandRegistry()
     registry.register("look", look, aliases=["l"])
+    registry.register("status", status, aliases=["stats"])
 
     print(
         f"\nWelcome, "
@@ -100,11 +102,6 @@ def main() -> None:
             if result:
                 print(result)
 
-            continue
-
-        if command in {"status", "stats"}:
-            print()
-            print(player.status())
             continue
 
         direction = command
