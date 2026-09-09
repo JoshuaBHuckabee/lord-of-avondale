@@ -140,18 +140,22 @@ As development progresses, additional packages will be added for systems such as
 
 ### Phase 1 — Foundation
 
--   Create Git repository
--   Establish project structure
--   Create Python package
--   Create initial README
--   Character model
--   Character tests
--   ANSI color system
--   Room model
--   Room tests
--   Initial dungeon
--   Dungeon tests
--   Basic movement
+- [x] Create Git repository
+- [x] Establish project structure
+- [x] Create Python package
+- [x] Create initial README
+- [x] Character model
+- [x] Character tests
+- [x] ANSI color system
+- [x] Room model
+- [x] Room tests
+- [x] Initial dungeon
+- [x] Dungeon tests
+- [x] Basic movement
+- [x] Move dungeon/world data to JSON
+- [x] Implement JSON world loader
+- [x] Load the game world from JSON
+- [x] Test JSON world loading and room connections
 
 ### Phase 2 — Command System
 
