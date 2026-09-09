@@ -114,7 +114,12 @@ def main() -> None:
 
             continue
 
-        direction = command
+        print(
+            color(
+                "Unknown command.",
+                Colors.RED,
+            )
+        )
 
 if __name__ == "__main__":
     main()
