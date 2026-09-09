@@ -5,6 +5,7 @@ Tests for the Room class.
 import pytest
 
 from lord_of_avondale.world.room import Room
+from lord_of_avondale.npcs.npc import NPC
 
 def test_room_stores_name_and_description() -> None:
     room = Room(
@@ -106,3 +107,21 @@ def test_describe_includes_available_exits() -> None:
     description = entrance.describe()
 
     assert "Exits: east, north" in description
+
+def test_describe_includes_npcs() -> None:
+    room = Room(
+        name="Entrance",
+        description="A dark entrance.",
+    )
+
+    npc = NPC(
+        name="Old Hermit",
+        description="An old man sits quietly.",
+        current_room=room,
+    )
+
+    room.npcs.append(npc)
+
+    description = room.describe()
+
+    assert "You see: Old Hermit" in description

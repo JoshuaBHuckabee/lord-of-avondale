@@ -6,6 +6,7 @@ import json
 from pathlib import Path
 
 from lord_of_avondale.world.room import Room
+from lord_of_avondale.npcs.npc import NPC
 
 def load_world(path: Path) -> tuple[dict[str, Room], str]:
     """
@@ -35,5 +36,17 @@ def load_world(path: Path) -> tuple[dict[str, Room], str]:
 
         for direction, destination_id in room_data.get("exits", {}).items():
             room.add_exit(direction, rooms[destination_id])
+
+    for room_id, room_data in rooms_data.items():
+        room = rooms[room_id]
+
+        for npc_data in room_data.get("npcs", []):
+            npc = NPC(
+                name=npc_data["name"],
+                description=npc_data["description"],
+                current_room=room,
+            )
+
+        room.npcs.append(npc)
 
     return rooms, start_room

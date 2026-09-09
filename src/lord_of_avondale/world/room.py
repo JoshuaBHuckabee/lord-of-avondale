@@ -3,6 +3,11 @@ Room definitions for the game world.
 """
 
 from dataclasses import dataclass, field
+from typing import TYPE_CHECKING
+
+# Prevent circular import
+if TYPE_CHECKING:
+    from lord_of_avondale.npcs.npc import NPC
 
 
 @dataclass
@@ -16,6 +21,7 @@ class Room:
     name: str
     description: str
     exits: dict[str, "Room"] = field(default_factory=dict)
+    npcs: list["NPC"] = field(default_factory=list)
 
     def add_exit(self, direction: str, room: "Room") -> None:
         """Connect this room to another room."""
@@ -40,9 +46,14 @@ class Room:
             self.description,
         ]
 
+        if self.npcs:
+            names = ", ".join(npc.name for npc in self.npcs)
+            output.append(f"\nYou see: {names}")
+
         if self.exits:
             directions = ", ".join(sorted(self.exits))
             output.append(f"\nExits: {directions}")
+            
         else:
             output.append("\nThere are no obvious exits.")
 

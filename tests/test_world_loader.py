@@ -42,3 +42,17 @@ def test_room_connections():
     assert hall.get_exit("east") is chamber
     assert chamber.get_exit("west") is hall
 
+def test_loads_npc_data() -> None:
+    rooms, _ = load_world(DUNGEON_PATH)
+
+    entrance = rooms["entrance"]
+
+    assert len(entrance.npcs) == 1
+
+    npc = entrance.npcs[0]
+
+    assert npc.name == "Old Hermit"
+    assert npc.description == (
+        "An old man sits quietly beside the ancient stone wall."
+    )
+    assert npc.current_room is entrance

@@ -6,7 +6,14 @@
       "description": "Cold air drifts through the ancient stone passage. A narrow stairway leads deeper into darkness.",
       "exits": {
         "north": "hall"
-      }
+      },
+      "npcs": [
+        {
+          "id": "old_hermit",
+          "name": "Old Hermit",
+          "description": "An old man sits quietly beside the ancient stone wall."
+        }
+      ]
     },
     "hall": {
       "name": "The Long Hall",
