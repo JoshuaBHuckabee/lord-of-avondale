@@ -1,23 +1,16 @@
 """
-Movement command.
+Movement commands.
 """
 
 from lord_of_avondale.commands.context import GameContext
 from lord_of_avondale.commands.result import CommandResult
 
 
-def move(
+def _move(
     context: GameContext,
-    arguments: list[str],
+    direction: str,
 ) -> CommandResult:
     """Move the player in the requested direction."""
-
-    if not arguments:
-        return CommandResult(
-            message="Go where?",
-        )
-
-    direction = arguments[0]
 
     destination = context.current_room.get_exit(direction)
 
@@ -31,3 +24,39 @@ def move(
     return CommandResult(
         message=context.current_room.describe(),
     )
+
+
+def north(
+    context: GameContext,
+    arguments: list[str],
+) -> CommandResult:
+    """Move north."""
+
+    return _move(context, "north")
+
+
+def south(
+    context: GameContext,
+    arguments: list[str],
+) -> CommandResult:
+    """Move south."""
+
+    return _move(context, "south")
+
+
+def east(
+    context: GameContext,
+    arguments: list[str],
+) -> CommandResult:
+    """Move east."""
+
+    return _move(context, "east")
+
+
+def west(
+    context: GameContext,
+    arguments: list[str],
+) -> CommandResult:
+    """Move west."""
+
+    return _move(context, "west")

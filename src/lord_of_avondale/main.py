@@ -7,7 +7,7 @@ from pathlib import Path
 from lord_of_avondale.characters.character import Character
 from lord_of_avondale.commands.parser import parse_command
 from lord_of_avondale.commands.look import look
-from lord_of_avondale.commands.move import move
+from lord_of_avondale.commands.move import north, south, east, west
 from lord_of_avondale.commands.status import status
 from lord_of_avondale.commands.help import help_command
 from lord_of_avondale.commands.quit import quit_command
@@ -69,10 +69,10 @@ def main() -> None:
     registry.register("status", status, aliases=["stats"])
     registry.register("help", help_command, aliases=["?"])
     registry.register("quit", quit_command, aliases=["exit"])
-    registry.register("north", move, aliases=["n"])
-    registry.register("south", move, aliases=["s"])
-    registry.register("east", move, aliases=["e"])
-    registry.register("west", move, aliases=["w"])
+    registry.register("north", north, aliases=["n"])
+    registry.register("south", south, aliases=["s"])
+    registry.register("east", east, aliases=["e"])
+    registry.register("west", west, aliases=["w"])
 
     print(
         f"\nWelcome, "
