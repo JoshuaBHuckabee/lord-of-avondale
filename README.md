@@ -159,15 +159,15 @@ As development progresses, additional packages will be added for systems such as
 
 ### Phase 2 — Command System
 
--[x] Command parser
--[ ] Command registry
--[ ] Movement commands
--[ ] Look command
--[ ] Status command
--[ ] Help command
--[ ] Quit command
--[ ] Unknown command handling
--[ ] Command tests
+- [x] Command parser
+- [x] Command registry
+- [ ] Movement commands
+- [x] Look command
+- [x] Status command
+- [x] Help command
+- [x] Quit command
+- [ ] Unknown command handling
+- [x] Command tests
 
 ### Phase 3 — World System
 
