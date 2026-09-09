@@ -7,6 +7,7 @@ from pathlib import Path
 from lord_of_avondale.characters.character import Character
 from lord_of_avondale.commands.parser import parse_command
 from lord_of_avondale.commands.look import look
+from lord_of_avondale.commands.move import move
 from lord_of_avondale.commands.status import status
 from lord_of_avondale.commands.help import help_command
 from lord_of_avondale.commands.quit import quit_command
@@ -68,6 +69,10 @@ def main() -> None:
     registry.register("status", status, aliases=["stats"])
     registry.register("help", help_command, aliases=["?"])
     registry.register("quit", quit_command, aliases=["exit"])
+    registry.register("north", move, aliases=["n"])
+    registry.register("south", move, aliases=["s"])
+    registry.register("east", move, aliases=["e"])
+    registry.register("west", move, aliases=["w"])
 
     print(
         f"\nWelcome, "
@@ -110,22 +115,6 @@ def main() -> None:
             continue
 
         direction = command
-
-        destination = context.current_room.get_exit(direction)
-
-        if destination is None:
-            print(
-                color(
-                    "You cannot go that way.",
-                    Colors.RED,
-                )
-            )
-            continue
-
-        context.current_room = destination
-
-        print(context.current_room.describe())
-
 
 if __name__ == "__main__":
     main()
