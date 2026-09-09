@@ -6,6 +6,9 @@ from pathlib import Path
 
 from lord_of_avondale.characters.character import Character
 from lord_of_avondale.commands.parser import parse_command
+from lord_of_avondale.commands.look import look
+from lord_of_avondale.commands.registry import CommandRegistry
+from lord_of_avondale.commands.context import GameContext
 from lord_of_avondale.utils.colors import Colors, color
 from lord_of_avondale.world.world_loader import load_world
 
@@ -56,14 +59,21 @@ def main() -> None:
     )
 
     rooms, start_room = load_world(dungeon_path)
-    current_room = rooms[start_room]
+
+    context = GameContext(
+        player=player,
+        current_room=rooms[start_room],
+    )
+
+    registry = CommandRegistry()
+    registry.register("look", look, aliases=["l"])
 
     print(
         f"\nWelcome, "
         f"{color(player.name, Colors.YELLOW)}."
     )
 
-    print(current_room.describe())
+    print(context.current_room.describe())
 
     print_help()
 
@@ -82,8 +92,14 @@ def main() -> None:
             print_help()
             continue
 
-        if command in {"look", "l"}:
-            print(current_room.describe())
+        handler = registry.get(command)
+
+        if handler is not None:
+            result = handler(context, arguments)
+
+            if result:
+                print(result)
+
             continue
 
         if command in {"status", "stats"}:
@@ -93,7 +109,7 @@ def main() -> None:
 
         direction = command
 
-        destination = current_room.get_exit(direction)
+        destination = context.current_room.get_exit(direction)
 
         if destination is None:
             print(
@@ -104,9 +120,9 @@ def main() -> None:
             )
             continue
 
-        current_room = destination
+        context.current_room = destination
 
-        print(current_room.describe())
+        print(context.current_room.describe())
 
 
 if __name__ == "__main__":
