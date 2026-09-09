@@ -1,0 +1,107 @@
+"""
+Entry point for the RPG.
+"""
+
+from src.lord_of_avondale.characters.character import Character
+from src.lord_of_avondale.utils.colors import Colors, color
+from src.lord_of_avondale.world.dungeon import create_dungeon
+
+
+def print_help() -> None:
+    """Display the commands currently available to the player."""
+
+    print(
+        """
+Commands
+--------
+north / n
+south / s
+east  / e
+west  / w
+
+look
+status
+help
+quit
+"""
+    )
+
+
+def main() -> None:
+    """Start the game."""
+
+    print(
+        color(
+            "\n====================================\n"
+            "        THE FORGOTTEN DUNGEON\n"
+            "====================================",
+            Colors.CYAN,
+        )
+    )
+
+    name = input("\nWhat is your name, adventurer? ").strip()
+
+    if not name:
+        name = "Adventurer"
+
+    player = Character(name=name)
+    current_room = create_dungeon()
+
+    print(
+        f"\nWelcome, "
+        f"{color(player.name, Colors.YELLOW)}."
+    )
+
+    print(current_room.describe())
+
+    print_help()
+
+    while player.is_alive():
+        command = input(
+            f"\n{color(player.name, Colors.GREEN)} > "
+        ).strip().lower()
+
+        if command in {"quit", "exit"}:
+            print("\nFarewell, adventurer.")
+            break
+
+        if command in {"help", "?"}:
+            print_help()
+            continue
+
+        if command in {"look", "l"}:
+            print(current_room.describe())
+            continue
+
+        if command in {"status", "stats"}:
+            print()
+            print(player.status())
+            continue
+
+        direction_aliases = {
+            "n": "north",
+            "s": "south",
+            "e": "east",
+            "w": "west",
+        }
+
+        direction = direction_aliases.get(command, command)
+
+        destination = current_room.get_exit(direction)
+
+        if destination is None:
+            print(
+                color(
+                    "You cannot go that way.",
+                    Colors.RED,
+                )
+            )
+            continue
+
+        current_room = destination
+
+        print(current_room.describe())
+
+
+if __name__ == "__main__":
+    main()
