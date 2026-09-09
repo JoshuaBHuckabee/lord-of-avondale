@@ -8,31 +8,26 @@ from lord_of_avondale.characters.character import Character
 from lord_of_avondale.commands.parser import parse_command
 from lord_of_avondale.commands.look import look
 from lord_of_avondale.commands.status import status
+from lord_of_avondale.commands.help import help_command
 from lord_of_avondale.commands.registry import CommandRegistry
 from lord_of_avondale.commands.context import GameContext
 from lord_of_avondale.utils.colors import Colors, color
 from lord_of_avondale.world.world_loader import load_world
 
+def execute_command(
+    registry: CommandRegistry,
+    context: GameContext,
+    command: str,
+    arguments: list[str],
+) -> str | None:
+    """Execute a registered command and return its output."""
 
-def print_help() -> None:
-    """Display the commands currently available to the player."""
+    handler = registry.get(command)
 
-    print(
-        """
-Commands
---------
-north / n
-south / s
-east  / e
-west  / w
+    if handler is None:
+        return None
 
-look
-status
-help
-quit
-"""
-    )
-
+    return handler(context, arguments)
 
 def main() -> None:
     """Start the game."""
@@ -69,6 +64,7 @@ def main() -> None:
     registry = CommandRegistry()
     registry.register("look", look, aliases=["l"])
     registry.register("status", status, aliases=["stats"])
+    registry.register("help", help_command, aliases=["?"])
 
     print(
         f"\nWelcome, "
@@ -77,7 +73,15 @@ def main() -> None:
 
     print(context.current_room.describe())
 
-    print_help()
+    result = execute_command(
+        registry,
+        context,
+        "help",
+        [],
+    )
+
+    if result:
+        print(result)
 
     while player.is_alive():
         command, arguments = parse_command(
@@ -90,18 +94,15 @@ def main() -> None:
             print("\nFarewell, adventurer.")
             break
 
-        if command in {"help", "?"}:
-            print_help()
-            continue
+        result = execute_command(
+            registry,
+            context,
+            command,
+            arguments,
+        )
 
-        handler = registry.get(command)
-
-        if handler is not None:
-            result = handler(context, arguments)
-
-            if result:
-                print(result)
-
+        if result is not None:
+            print(result)
             continue
 
         direction = command
