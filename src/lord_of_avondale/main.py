@@ -2,9 +2,11 @@
 Entry point for the RPG.
 """
 
+from pathlib import Path
+
 from lord_of_avondale.characters.character import Character
 from lord_of_avondale.utils.colors import Colors, color
-from lord_of_avondale.world.dungeon import create_dungeon
+from lord_of_avondale.world.world_loader import load_world
 
 
 def print_help() -> None:
@@ -45,7 +47,15 @@ def main() -> None:
         name = "Adventurer"
 
     player = Character(name=name)
-    current_room = create_dungeon()
+    dungeon_path = (
+        Path(__file__).parent
+        / "data"
+        / "dungeons"
+        / "forgotten_dungeon.json"
+    )
+
+    rooms, start_room = load_world(dungeon_path)
+    current_room = rooms[start_room]
 
     print(
         f"\nWelcome, "
