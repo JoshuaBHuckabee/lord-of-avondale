@@ -10,6 +10,7 @@ from lord_of_avondale.commands.look import look
 from lord_of_avondale.commands.move import north, south, east, west
 from lord_of_avondale.commands.status import status
 from lord_of_avondale.commands.help import help_command
+from lord_of_avondale.commands.examine import examine
 from lord_of_avondale.commands.quit import quit_command
 from lord_of_avondale.commands.registry import CommandRegistry
 from lord_of_avondale.commands.context import GameContext
@@ -68,6 +69,7 @@ def main() -> None:
     registry.register("look", look, aliases=["l"])
     registry.register("status", status, aliases=["stats"])
     registry.register("help", help_command, aliases=["?"])
+    registry.register("examine", examine, aliases=["x"])
     registry.register("quit", quit_command, aliases=["exit"])
     registry.register("north", north, aliases=["n"])
     registry.register("south", south, aliases=["s"])
