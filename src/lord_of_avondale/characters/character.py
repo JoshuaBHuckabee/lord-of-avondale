@@ -9,11 +9,10 @@ from lord_of_avondale.utils.colors import Colors, color
 @dataclass
 class Character:
     """
-    Represents a player character or NPC
+    Represents a player character or NPC.
 
-    We're starting with only a few attributes. As the game grows
-    we'll eventually move more complicated behavior into appropriate
-    systems rather than making this class responsible for everything.
+    This class contains the basic attributes and behavior shared
+    by characters
     """
 
     name: str
@@ -37,6 +36,7 @@ class Character:
         
         Health cannot fall below zero.
         """
+        self.health = max(0, self.health - amount)
 
     def status(self) -> str:
         """

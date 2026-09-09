@@ -24,7 +24,7 @@ def create_dungeon() -> Room:
         name="The Long Hall",
         description=(
             "Torches flicker weakly along the walls."
-            "The stone beneath your feet is worn smooth by centries "
+            "The stone beneath your feet is worn smooth by centuries "
             "of travelers."
         ),
     )
