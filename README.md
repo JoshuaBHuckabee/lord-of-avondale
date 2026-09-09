@@ -161,12 +161,12 @@ As development progresses, additional packages will be added for systems such as
 
 - [x] Command parser
 - [x] Command registry
-- [ ] Movement commands
+- [x] Movement commands
 - [x] Look command
 - [x] Status command
 - [x] Help command
 - [x] Quit command
-- [ ] Unknown command handling
+- [x] Unknown command handling
 - [x] Command tests
 
 ### Phase 3 — World System
