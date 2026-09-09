@@ -5,6 +5,7 @@ Entry point for the RPG.
 from pathlib import Path
 
 from lord_of_avondale.characters.character import Character
+from lord_of_avondale.commands.parser import parse_command
 from lord_of_avondale.utils.colors import Colors, color
 from lord_of_avondale.world.world_loader import load_world
 
@@ -67,9 +68,11 @@ def main() -> None:
     print_help()
 
     while player.is_alive():
-        command = input(
-            f"\n{color(player.name, Colors.GREEN)} > "
-        ).strip().lower()
+        command, arguments = parse_command(
+            input(
+                 f"\n{color(player.name, Colors.GREEN)} > "
+            )
+        )
 
         if command in {"quit", "exit"}:
             print("\nFarewell, adventurer.")
@@ -88,14 +91,7 @@ def main() -> None:
             print(player.status())
             continue
 
-        direction_aliases = {
-            "n": "north",
-            "s": "south",
-            "e": "east",
-            "w": "west",
-        }
-
-        direction = direction_aliases.get(command, command)
+        direction = command
 
         destination = current_room.get_exit(direction)
 

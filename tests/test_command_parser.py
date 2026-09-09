@@ -41,3 +41,16 @@ def test_parse_empty_command() -> None:
 
     assert command == ""
     assert arguments == []
+
+def test_parse_multiple_arguments() -> None:
+    command, arguments = parse_command("say hello adventurer")
+
+    assert command == "say"
+    assert arguments == ["hello", "adventurer"]
+
+
+def test_parse_whitespace_between_arguments() -> None:
+    command, arguments = parse_command("look     around")
+
+    assert command == "look"
+    assert arguments == ["around"]
